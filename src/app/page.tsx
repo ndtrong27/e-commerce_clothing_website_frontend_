@@ -7,43 +7,23 @@ import { formatCurrency } from "@/lib/utils";
 import { fetchProducts } from "@/services/api";
 import { ArrowRight, ShoppingBag, Star, Zap, ShieldCheck } from "lucide-react";
 
-import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
-
 export default function Home() {
-  const { user, loading: authLoading } = useAuth();
-  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push("/login");
-      return;
-    }
-
-    if (user) {
-      const loadProducts = async () => {
-        try {
-          const data = await fetchProducts();
-          setProducts(data.slice(0, 4)); // Featured 4 products
-        } catch (error) {
-          console.error("Failed to fetch products", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      loadProducts();
-    }
-  }, [user, authLoading, router]);
-
-  if (authLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-12 h-12 border-4 border-primary-brand border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+    const loadProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data.slice(0, 4)); // Featured 4 products
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProducts();
+  }, []);
 
   return (
     <main className="min-h-screen">
