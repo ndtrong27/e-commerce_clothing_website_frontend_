@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #F0F9FF;
-  /* Sky blue background */
-  --foreground: #0C4A6E;
-  /* Dark blue text */
-  --primary: #0EA5E9;
-  --secondary: #38BDF8;
-  --cta: #F97316;
+  --background: #FFFFFF;
+  --foreground: #171717;
+  --primary: #171717;
+  --secondary: #404040;
+  --cta: #D4AF37; /* Gold */
   --white: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(23, 23, 23, 0.1);
 }
 
 @theme inline {
@@ -18,8 +18,8 @@
   --color-primary-brand: var(--primary);
   --color-secondary-brand: var(--secondary);
   --color-cta-brand: var(--cta);
-  --font-heading: 'Outfit', sans-serif;
-  --font-body: 'Work Sans', sans-serif;
+  --font-heading: 'Cormorant', serif;
+  --font-body: 'Montserrat', sans-serif;
 }
 
 body {
