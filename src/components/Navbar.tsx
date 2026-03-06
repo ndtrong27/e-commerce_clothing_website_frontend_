@@ -64,7 +64,7 @@ export function Navbar() {
 
                         <div className="h-8 w-px bg-gray-100 mx-2" />
 
-                        <Link href="/cart" className="p-2 text-secondary-brand hover:text-primary-brand relative transition-colors group">
+                        <Link href={user ? "/cart" : "/login"} className="p-2 text-secondary-brand hover:text-primary-brand relative transition-colors group">
                             <ShoppingCart className="h-6 w-6 group-hover:scale-110 transition-transform" />
                             {itemCount > 0 && (
                                 <span className="absolute -top-1 -right-1 inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-[10px] font-bold leading-none text-white bg-cta-brand rounded-full border-2 border-white shadow-sm">

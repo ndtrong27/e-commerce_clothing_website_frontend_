@@ -120,4 +120,56 @@ test.describe('Authentication Flow - Frontend E2E (Mocked)', () => {
         // Verify Navbar doesn't show user full name anymore
         await expect(page.getByRole('button', { name: /logout/i })).not.toBeVisible();
     });
+
+    test('UAT-004: Failed Login', async ({ page }) => {
+        // Override the login endpoint to simulate failure
+        await page.route('*/**/api/auth/login', async route => {
+            if (route.request().method() === 'OPTIONS') {
+                return route.fulfill({ status: 200, headers: corsHeaders });
+            }
+            const json = {
+                error: { message: 'Invalid email or password' }
+            };
+            await route.fulfill({ status: 401, json, headers: corsHeaders });
+        });
+
+        await page.goto('/login');
+
+        await page.getByPlaceholder('name@example.com').fill('wrong@example.com');
+        await page.getByPlaceholder('••••••••').fill('WrongPassword123!');
+
+        await page.getByRole('button', { name: /sign in/i }).click();
+
+        // Verify error message is shown
+        await expect(page.getByText('Invalid email or password')).toBeVisible();
+
+        // Verify the URL is still the login page
+        await expect(page).toHaveURL(/.*\/login/);
+    });
+
+    test('UAT-005: Cart Redirect Based on Authentication', async ({ page }) => {
+        // --- Unauthenticated Flow ---
+        await page.goto('/');
+
+        // Click the Cart icon
+        await page.locator('.lucide-shopping-cart').click();
+
+        // Verify redirected to login
+        await expect(page).toHaveURL(/.*\/login/);
+
+        // --- Authenticated Flow ---
+        await page.goto('/login');
+        await page.getByPlaceholder('name@example.com').fill(mockUser.email);
+        await page.getByPlaceholder('••••••••').fill('Password123!');
+        await page.getByRole('button', { name: /sign in/i }).click();
+
+        // Wait for redirect to home
+        await expect(page).toHaveURL('/');
+
+        // Click the Cart icon again
+        await page.locator('.lucide-shopping-cart').click();
+
+        // Verify redirected to cart
+        await expect(page).toHaveURL(/.*\/cart/);
+    });
 });
