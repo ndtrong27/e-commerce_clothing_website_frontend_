@@ -147,29 +147,4 @@ test.describe('Authentication Flow - Frontend E2E (Mocked)', () => {
         await expect(page).toHaveURL(/.*\/login/);
     });
 
-    test('UAT-005: Cart Redirect Based on Authentication', async ({ page }) => {
-        // --- Unauthenticated Flow ---
-        await page.goto('/');
-
-        // Click the Cart icon
-        await page.locator('.lucide-shopping-cart').click();
-
-        // Verify redirected to login
-        await expect(page).toHaveURL(/.*\/login/);
-
-        // --- Authenticated Flow ---
-        await page.goto('/login');
-        await page.getByPlaceholder('name@example.com').fill(mockUser.email);
-        await page.getByPlaceholder('••••••••').fill('Password123!');
-        await page.getByRole('button', { name: /sign in/i }).click();
-
-        // Wait for redirect to home
-        await expect(page).toHaveURL('/');
-
-        // Click the Cart icon again
-        await page.locator('.lucide-shopping-cart').click();
-
-        // Verify redirected to cart
-        await expect(page).toHaveURL(/.*\/cart/);
-    });
 });

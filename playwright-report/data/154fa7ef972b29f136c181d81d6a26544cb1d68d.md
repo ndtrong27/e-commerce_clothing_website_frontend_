@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "StyleStore" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: StyleStore
+        - link "Shop" [ref=e9] [cursor=pointer]:
+          - /url: /shop
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /login
+          - link "Register" [ref=e13] [cursor=pointer]:
+            - /url: /register
+        - link [ref=e15] [cursor=pointer]:
+          - /url: /login
+          - img [ref=e16]
+  - main [ref=e20]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - heading "Welcome Back" [level=1] [ref=e26]
+        - paragraph [ref=e27]: Sign in to your account
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - text: Email Address
+          - generic [ref=e30]:
+            - img [ref=e31]
+            - textbox "name@example.com" [ref=e34]
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: Password
+            - link "Forgot?" [ref=e38] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - textbox "••••••••" [ref=e43]
+        - button "Sign In" [ref=e44]:
+          - text: Sign In
+          - img [ref=e45]
+      - paragraph [ref=e48]:
+        - text: Don't have an account?
+        - link "Create account" [ref=e49] [cursor=pointer]:
+          - /url: /register
+  - alert [ref=e50]
+```
