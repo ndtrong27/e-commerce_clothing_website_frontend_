@@ -11,6 +11,7 @@ import {
     Mail,
     Calendar,
     User,
+    Users,
     UserCheck,
     Lock,
     Unlock,
@@ -50,11 +51,16 @@ export default function UsersPage() {
         <div className="space-y-8">
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                    { label: 'Total Users', value: meta.total.toString(), icon: Users, color: 'blue' },
-                    { label: 'Admin Users', value: users.filter(u => u.roles.includes('admin')).length.toString(), icon: ShieldCheck, color: 'emerald' },
-                    { label: 'Customer Users', value: users.filter(u => u.roles.includes('customer')).length.toString(), icon: User, color: 'slate' },
-                ].map((stat, i) => (
+                {(() => {
+                    const adminCount = users.filter(u => u.roles.includes('admin')).length;
+                    const customerCount = Math.max(0, meta.total - adminCount);
+                    
+                    return [
+                        { label: 'Total Users', value: meta.total.toString(), icon: Users, color: 'blue' },
+                        { label: 'Admin Users', value: adminCount.toString(), icon: ShieldCheck, color: 'emerald' },
+                        { label: 'Customer Users', value: customerCount.toString(), icon: User, color: 'slate' },
+                    ];
+                })().map((stat, i) => (
                     <div key={i} className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl flex items-center gap-5 hover:border-blue-500/30 transition-all group shadow-xl">
                         <div className={twMerge(
                             "w-12 h-12 rounded-xl flex items-center justify-center shadow-lg",
@@ -210,7 +216,3 @@ export default function UsersPage() {
         </div>
     );
 }
-
-// Fixed missing import
-import { Users } from 'lucide-react';
-import { ShoppingBag } from 'lucide-react'; // Placeholder if needed elsewhere
