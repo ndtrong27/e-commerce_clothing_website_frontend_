@@ -6,8 +6,12 @@ import { Product } from "@/types";
 import { formatCurrency } from "@/lib/utils";
 import { fetchProducts } from "@/services/api";
 import { ArrowRight, ShoppingBag, Star, Zap, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import DashboardPage from "./dashboard/page";
 
 export default function Home() {
+  const { user } = useAuth();
+  const isAdmin = user?.roles?.includes('admin');
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +28,10 @@ export default function Home() {
     };
     loadProducts();
   }, []);
+
+  if (isAdmin) {
+    return <DashboardPage />;
+  }
 
   return (
     <main className="min-h-screen">

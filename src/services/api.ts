@@ -76,3 +76,24 @@ export const createOrder = async (orderData: any) => {
     const response = await api.post('/orders', orderData);
     return response.data;
 };
+
+// Admin Endpoints
+export const fetchAdminProducts = async (params?: { page?: number, limit?: number, search?: string, category?: string }) => {
+    const response = await api.get('/admin/products', { params });
+    return response.data; // { data, meta }
+};
+
+export const fetchAdminOrders = async (params?: { page?: number, limit?: number, status?: string }) => {
+    const response = await api.get('/admin/orders', { params });
+    return response.data; // { data, meta }
+};
+
+export const fetchAdminUsers = async (params?: { page?: number, limit?: number }) => {
+    const response = await api.get('/admin/users', { params });
+    return response.data; // { data, meta }
+};
+
+export const fetchAdminDashboardStats = async () => {
+    const response = await api.get('/admin/dashboard/stats');
+    return response.data; // { total_sales, total_orders, total_products, total_users, recent_orders }
+};

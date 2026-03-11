@@ -17,8 +17,13 @@ export default function LoginPage() {
         e.preventDefault();
         setError('');
         try {
-            await login({ email, password });
-            router.push('/');
+            const response = await login({ email, password });
+            
+            if (response?.user?.roles?.includes('admin')) {
+                router.push('/dashboard');
+            } else {
+                router.push('/');
+            }
         } catch (err: any) {
             setError(err.response?.data?.error?.message || 'Login failed. Please check your credentials.');
         }

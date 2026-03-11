@@ -23,6 +23,11 @@ export function Navbar() {
                             <Link href="/shop" className="text-sm font-body border-transparent text-secondary-brand hover:text-primary-brand inline-flex items-center px-1 pt-1 border-b-2 transition-colors">
                                 Shop
                             </Link>
+                            {user?.roles?.includes('admin') && (
+                                <Link href="/dashboard" className="text-sm font-body border-transparent text-cta-brand hover:text-primary-brand inline-flex items-center px-1 pt-1 border-b-2 transition-colors font-bold">
+                                    Dashboard
+                                </Link>
+                            )}
                         </div>
                     </div>
 
